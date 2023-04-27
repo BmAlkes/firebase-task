@@ -13,6 +13,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
@@ -21,6 +22,7 @@ const Admin = () => {
   const [input, setInput] = useState("");
   const [user, setUser] = useState({});
   const [task, setTasks] = useState([]);
+  const [editTarefa, setEditTask] = useState({});
 
   useEffect(() => {
     const loadTask = async () => {
@@ -57,6 +59,10 @@ const Admin = () => {
     if (input === "") {
       toast.warning(" type your task...");
     }
+    if (editTarefa?.id) {
+      handleUpdateTarefa();
+      return;
+    }
     await addDoc(collection(db, "Tasks"), {
       task: input,
       created: new Date(),
@@ -76,10 +82,28 @@ const Admin = () => {
   };
 
   const deleteTask = async (id) => {
-    console.log(id);
     const docRef = doc(db, "Tasks", id);
     await deleteDoc(docRef);
+    toast.success("task completed..");
   };
+  const editTask = async (task) => {
+    setInput(task.task);
+    setEditTask(task);
+  };
+
+  async function handleUpdateTarefa() {
+    const docRef = doc(db, "Tasks", editTarefa?.id);
+    await updateDoc(docRef, {
+      task: input,
+    })
+      .then(() => {
+        toast.success("task updated");
+        setInput("");
+      })
+      .catch((err) => {
+        toast.warn(`${err}`);
+      });
+  }
   return (
     <div className="admin-container">
       <h1>My tasks</h1>
@@ -90,17 +114,26 @@ const Admin = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         ></textarea>
-        <button type="submit" className="btn-register">
-          {" "}
-          Register Task
-        </button>
+        {Object.keys(editTarefa).length > 0 ? (
+          <button
+            type="submit"
+            className="btn-register"
+            style={{ backgroundColor: "#6add39" }}
+          >
+            Update Task
+          </button>
+        ) : (
+          <button type="submit" className="btn-register">
+            Register Task
+          </button>
+        )}
       </form>
 
       {task.map((task) => (
         <article className="list" key={task.id}>
           <p>{task.task}</p>
           <div>
-            <button className="btn-edit">
+            <button className="btn-edit" onClick={() => editTask(task)}>
               <FiEdit size={20} />
               Edit
             </button>
