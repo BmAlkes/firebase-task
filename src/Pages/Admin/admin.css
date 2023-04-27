@@ -1,0 +1,81 @@
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 48px;
+}
+
+.admin-container h1 {
+  margin-bottom: 28px;
+}
+
+.btn-register {
+  margin-bottom: 28px;
+}
+
+.list {
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  background-color: rgba(18, 18, 18, 0.38);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  justify-content: space-between;
+  padding: 14px 8px;
+  align-items: center;
+}
+
+.list p {
+  margin-bottom: 1.5rem;
+}
+
+.list button {
+  margin-right: 8px;
+  border: 0;
+  border-radius: 4px;
+  padding: 4px;
+  height: 36px;
+  font-size: 1.1rem;
+  width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.list button svg {
+  margin-right: 10px;
+}
+
+.btn-delete {
+  color: green;
+  background-color: #ffffff;
+}
+.btn-edit {
+  background: #fff;
+  color: #116feb;
+  margin-bottom: 10px;
+}
+
+.btn-logout {
+  position: absolute;
+  bottom: 6%;
+  left: 4%;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(219, 38, 41, 0.35);
+  color: #fff;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: all 1s ease-in-out;
+}
+.btn-logout svg {
+  margin-right: 5px;
+}
+
+.btn-logout:hover {
+  background-color: rgba(219, 38, 41, 0.8);
+}
